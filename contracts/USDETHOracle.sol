@@ -1,4 +1,4 @@
-pragma solidity 0.4.19;
+pragma solidity ^0.4.19;
 import "./utils/usingOraclize.sol";
 
 
@@ -38,14 +38,14 @@ contract USDETHOracle is usingOraclize {
         require(myidList[myid] != true);
         myidList[myid] = true; // mark this myid (default bool value is false)
 
-        LogCalled("Received callback");
+        emit LogCalled("Received callback");
         ethUsdString = result;
         ethUsdUint = parseInt(result);
         lastUpdated = now; // solhint-disable-line not-rely-on-time
-        LogNewPrice(ethUsdString);
+        emit LogNewPrice(ethUsdString);
 
         if (!lock) {
-            LogOraclizeQuery("Oraclize query was sent, standing by for the answer..");
+            emit LogOraclizeQuery("Oraclize query was sent, standing by for the answer..");
             oraclize_query(
             intervalInSeconds,
             "URL",
@@ -57,9 +57,9 @@ contract USDETHOracle is usingOraclize {
     function update() public payable onlyAdmin {
         require(!lock);
         if (oraclize_getPrice("URL") > this.balance) {
-            LogOraclizeQuery("Oraclize query was NOT sent, please add some ETH to cover for the query fee");
+            emit LogOraclizeQuery("Oraclize query was NOT sent, please add some ETH to cover for the query fee");
         } else {
-            LogOraclizeQuery("Oraclize query was sent, standing by for the answer..");
+            emit LogOraclizeQuery("Oraclize query was sent, standing by for the answer..");
             oraclize_query("URL", url);
         }
     }

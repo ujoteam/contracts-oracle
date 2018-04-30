@@ -10,9 +10,9 @@ contract('USDETHOracleLocalhost', (accounts) => {
     const oracle = await USDETHOracleLocalhost.new(accounts[0], 10, { from: accounts[0] });
 
     await oracle.update({ value: web3.toWei(1, 'ether'), from: accounts[0] });
-    await delay(20000); // 60 seconds
+    await delay(20000); // 20 seconds
     const firstPrice = await oracle.getPrice.call();
-    await delay(20000); // 60 seconds
+    await delay(20000); // 20 seconds
     const secondPrice = await oracle.getPrice.call();
     assert.notEqual(firstPrice, secondPrice);
   });
