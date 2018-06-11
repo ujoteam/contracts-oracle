@@ -27,12 +27,13 @@
     "truffle-hdwallet-provider": "0.0.3"
   },
   "devDependencies": {
-    "ethereum-bridge": "git+ssh://git@github.com:oraclize/ethereum-bridge.git#1f837fe",
     "eslint": "4.13.1",
     "eslint-config-airbnb": "16.1.0",
     "eslint-plugin-import": "2.8.0",
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-react": "7.5.1",
+    "ethereum-bridge": "git+ssh://git@github.com:oraclize/ethereum-bridge.git#1f837fe",
+    "ganache-cli": "^6.1.0",
     "solhint": "1.1.10"
   }
 }
