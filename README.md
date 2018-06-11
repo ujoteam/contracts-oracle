@@ -1,5 +1,8 @@
 # Ujo Oracles using Oraclize
 
+[![codecov](https://codecov.io/gh/UjoTeam/contracts-oracle/branch/master/graph/badge.svg)](https://codecov.io/gh/UjoTeam/contracts-oracle)  
+[![CircleCI](https://circleci.com/gh/UjoTeam/contracts-oracle.svg?style=svg)](https://circleci.com/gh/UjoTeam/contracts-oracle)
+
 The oracle works by using Oraclize. With oraclize you specify a remote URL in the smart contract itself. With this, calling this function, it will take some ether in the oracle and pay towards Oraclize. Oraclize will then in an async fashion return to the callback function the result.
 
 In this case it's the USD exchange rate from Kraken.
@@ -25,10 +28,14 @@ After this, you can then do the above steps. Follow along in Rinkeby.
 
 To test locally, do the following:
 
-1. ganache-cli --mnemonic "ujo music service" --accounts 50
-2. Install ethereum-bridge from https://github.com/oraclize/ethereum-bridge.
-3. run 'node bridge -H localhost:8545 -a 2' in cloned folder
+1. "npm install"
+2. run "node ./node_modules/ganache-cli/build/cli.node.js --mnemonic "ujo music service" --accounts 5" in its own tab.
+3. run "node ./node_modules/ethereum-bridge/bridge -H localhost:8545 -a 2" in its own tab.
 4. follow the instructions and copy the relevant line of code into the USDETHOracle_localhost contract [the default should be the same, so this might not be necessary].
-5. truffle test --network ganachecli
+5. "npm run test" [runs linter & does truffle test --network ganachecli]
 
 It sets the calls 20 seconds apart. In some circumstances the tests might fail due to prices staying the same.
+
+# CI
+
+CircleCI mimics the above steps to run tests, except it adds coverage reporting.

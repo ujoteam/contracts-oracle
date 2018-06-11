@@ -3,7 +3,7 @@ For testing using the Ethereum Bridge on localhost.
 Requires setting to your own resolver.
 */
 
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.23;
 import "./USDETHOracle.sol";
 
 
