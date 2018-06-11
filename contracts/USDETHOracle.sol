@@ -5,22 +5,20 @@ import "./utils/usingOraclize.sol";
 contract USDETHOracle is usingOraclize {
 
     string public ethUsdString;
-    uint public ethUsdUint;
-    uint public lastUpdated;
 
     address public admin;
     bool public lock = false;
     uint256 public intervalInSeconds;
-    mapping(bytes32 => bool) public myidList;
+    bytes32 public pendingId = 0;
     string public url;
 
     event LogOraclizeQuery(string description);
     event LogNewPrice(string price);
-    event LogCalled(string desc);
 
     function USDETHOracle(address _admin, uint256 _interval) public {
         admin = _admin;
         intervalInSeconds = _interval;
+        oraclize_setCustomGasPrice(10000000000); // 10 gwei default
         // default on deploy
         url = "json(https://api.kraken.com/0/public/Ticker?pair=ETHUSD).result.XETHZUSD.c.0";
     }
@@ -35,33 +33,24 @@ contract USDETHOracle is usingOraclize {
 
     function __callback(bytes32 myid, string result) public { // solhint-disable-line
         require(msg.sender == oraclize_cbAddress());
-        require(myidList[myid] != true);
-        myidList[myid] = true; // mark this myid (default bool value is false)
+        require(pendingId == myid);
 
-        emit LogCalled("Received callback");
         ethUsdString = result;
-        ethUsdUint = parseInt(result);
-        lastUpdated = now; // solhint-disable-line not-rely-on-time
         emit LogNewPrice(ethUsdString);
 
-        if (!lock) {
-            emit LogOraclizeQuery("Oraclize query was sent, standing by for the answer..");
-            oraclize_query(
-            intervalInSeconds,
-            "URL",
-            url
-            );
-        }
+        require(!lock);
+        emit LogOraclizeQuery("Oraclize Queried");
+        pendingId = oraclize_query(intervalInSeconds, "URL", url, 150000);
     }
 
     function update() public payable onlyAdmin {
         require(!lock);
-        if (oraclize_getPrice("URL") > this.balance) {
-            emit LogOraclizeQuery("Oraclize query was NOT sent, please add some ETH to cover for the query fee");
-        } else {
-            emit LogOraclizeQuery("Oraclize query was sent, standing by for the answer..");
-            oraclize_query("URL", url);
-        }
+        emit LogOraclizeQuery("Oraclize Queried");
+        pendingId = oraclize_query("URL", url, 150000);
+    }
+
+    function setGasPrice(uint256 _newGasPrice) public onlyAdmin {
+        oraclize_setCustomGasPrice(_newGasPrice); // 10 gwei default
     }
 
     function updateInterval(uint256 _newInterval) public onlyAdmin {
@@ -88,7 +77,7 @@ contract USDETHOracle is usingOraclize {
         return ethUsdString;
     }
 
-    function getUintPrice() public constant returns (uint) {
+    /* function getUintPrice() public constant returns (uint) {
         return ethUsdUint;
-    }
+    }*/
 }
