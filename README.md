@@ -1,6 +1,5 @@
 # Ujo Oracles using Oraclize
 
-[![codecov](https://codecov.io/gh/UjoTeam/contracts-oracle/branch/master/graph/badge.svg)](https://codecov.io/gh/UjoTeam/contracts-oracle)  
 [![CircleCI](https://circleci.com/gh/UjoTeam/contracts-oracle.svg?style=svg)](https://circleci.com/gh/UjoTeam/contracts-oracle)
 
 The oracle works by using Oraclize. With oraclize you specify a remote URL in the smart contract itself. With this, calling this function, it will take some ether in the oracle and pay towards Oraclize. Oraclize will then in an async fashion return to the callback function the result.
@@ -39,3 +38,7 @@ It sets the calls 20 seconds apart. In some circumstances the tests might fail d
 # CI
 
 CircleCI mimics the above steps to run tests, except it adds coverage reporting.
+
+# Coverage
+
+Coverage plans to be added, but it is currently hanging infrequently on instrumentation. Opened up an issue.
