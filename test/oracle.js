@@ -12,9 +12,12 @@ contract('USDETHOracleLocalhost', (accounts) => {
     await oracle.update({ value: web3.toWei(1, 'ether'), from: accounts[0] });
     await delay(20000); // 20 seconds
     const firstPrice = await oracle.getPrice.call();
-    await delay(20000); // 20 seconds
+    const firstPriceUint = await oracle.getUintPrice.call();
+    await delay(40000); // 20 seconds
     const secondPrice = await oracle.getPrice.call();
+    const secondPriceUint = await oracle.getUintPrice.call();
     assert.notEqual(firstPrice, secondPrice);
+    assert.notEqual(firstPriceUint, secondPriceUint);
   });
 
   it('Should allow admin and admin only to change URL', async () => {
