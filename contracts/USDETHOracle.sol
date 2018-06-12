@@ -77,7 +77,7 @@ contract USDETHOracle is usingOraclize {
         return ethUsdString;
     }
 
-    /* function getUintPrice() public constant returns (uint) {
-        return ethUsdUint;
-    }*/
+    function getUintPrice() public constant returns (uint) {
+        return parseInt(ethUsdString);
+    }
 }
