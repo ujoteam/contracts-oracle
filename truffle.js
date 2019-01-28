@@ -13,7 +13,7 @@ module.exports = {
       network_id: 1,
       provider: new HDWalletProvider(mnemonic, mainnetProviderUrl, 1),
       gas: 4700000,
-      gasPrice: 20000000000,
+      gasPrice: 20000000000, // 20 gwei. Adjust before deploying/migrating.
     },
     rinkeby: {
       network_id: 4,
@@ -22,11 +22,6 @@ module.exports = {
       gasPrice: 20000000000,
     },
     ganachecli: {
-      host: 'localhost',
-      port: '8545',
-      network_id: '*',
-    },
-    test: {
       host: 'localhost',
       port: '8545',
       network_id: '*',
