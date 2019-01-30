@@ -23,7 +23,7 @@
   "homepage": "https://github.com/UjoTeam/contracts-oracle#readme",
   "dependencies": {
     "bignumber.js": "^6.0.0",
-    "truffle": "4.1.7",
+    "truffle": "5.0.2",
     "truffle-contract": "3.0.1",
     "truffle-hdwallet-provider": "0.0.3"
   },
@@ -37,6 +37,6 @@
     "ethereum-bridge": "git+ssh://git@github.com:oraclize/ethereum-bridge.git#1f837fe",
     "ganache-cli": "^6.1.0",
     "solhint": "1.2.1",
-    "solidity-coverage": "^0.5.4"
+    "solidity-coverage": "0.5.11"
   }
 }

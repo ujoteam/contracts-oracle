@@ -1,3 +1,4 @@
+/* eslint-disable */
 // was for oraclize oracle
 /* const { assertRevert } = require('./helpers/assertRevert');
 
